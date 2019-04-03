@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        .validationError{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+
+<h3 class="center">Edit Task</h3>
+
+<div class="container center">
+    <form action="#" th:action="@{'/todo/' + ${task.id}}" th:object="${task}" method="post">
+        <p>Task Name: <input type="text" th:field="*{title}" /></p>
+        <span class="validationError"
+        th:if="${#fields.hasErrors('title')}"
+        th:errors="*{title}"></span>
+        <p>Description: <input type="text" th:field="*{description}" /></p>
+        <span class="validationError"
+              th:if="${#fields.hasErrors('description')}"
+              th:errors="*{description}"></span>
+        <!--<p>Date: <input type="date" th:field="*{date}" /></p>-->
+        <p>Date: <input type="date"   th:value="*{date}" th:field="*{date}"/></p>
+        <span class="validationError"
+              th:if="${#fields.hasErrors('date')}"
+              th:errors="*{date}"></span>
+        <p><input type="submit" value="Edit" class="btn btn-primary green"/></p>
+    </form>
+</div>
+</body>
+</html>
