@@ -1,8 +1,8 @@
-package com.example.todolist.controller;
+package com.example.firedetect.controller;
 
-import com.example.todolist.logs.Loggable;
-import com.example.todolist.model.Fire;
-import com.example.todolist.repo.TaskRepository;
+import com.example.firedetect.logs.Loggable;
+import com.example.firedetect.model.Fire;
+import com.example.firedetect.repo.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 
 @Controller
-@RequestMapping("/todo")
+@RequestMapping("/fire-detect")
 public class FireDetectController {
 
     @Autowired
@@ -91,7 +91,7 @@ public class FireDetectController {
             return "edit";
         }
         taskRepository.save(fire);
-        return "redirect:/todo";
+        return "redirect:/fire-detect";
     }
 
 }

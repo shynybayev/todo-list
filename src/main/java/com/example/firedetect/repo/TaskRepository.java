@@ -1,6 +1,6 @@
-package com.example.todolist.repo;
+package com.example.firedetect.repo;
 
-import com.example.todolist.model.Fire;
+import com.example.firedetect.model.Fire;
 import org.springframework.data.repository.CrudRepository;
 
 

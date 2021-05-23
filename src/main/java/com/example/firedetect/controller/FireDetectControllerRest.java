@@ -1,12 +1,14 @@
-package com.example.todolist.controller;
+package com.example.firedetect.controller;
 
-import com.example.todolist.logs.Loggable;
-import com.example.todolist.model.Fire;
-import com.example.todolist.repo.TaskRepository;
+import com.example.firedetect.logs.Loggable;
+import com.example.firedetect.model.Fire;
+import com.example.firedetect.model.StaticDto;
+import com.example.firedetect.repo.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
@@ -23,6 +25,11 @@ public class FireDetectControllerRest {
     @Autowired
     public FireDetectControllerRest(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
+    }
+
+    @PostMapping(value = "/postbody", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Integer> postBody(@RequestBody StaticDto dto) {
+        return new ResponseEntity<>(200, HttpStatus.OK);
     }
 
     @GetMapping

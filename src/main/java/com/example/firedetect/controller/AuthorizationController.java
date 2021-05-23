@@ -1,8 +1,8 @@
-package com.example.todolist.controller;
+package com.example.firedetect.controller;
 
 
-import com.example.todolist.logs.Loggable;
-import com.example.todolist.model.User;
+import com.example.firedetect.logs.Loggable;
+import com.example.firedetect.model.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

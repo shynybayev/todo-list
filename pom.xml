@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from taskRepository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>todo-list</artifactId>
+    <artifactId>fire-detect</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>todo-list</name>
-    <description>Demo project for Spring Boot</description>
+    <name>fire-detect</name>
+    <description>Project IOT</description>
 
     <properties>
         <java.version>1.8</java.version>

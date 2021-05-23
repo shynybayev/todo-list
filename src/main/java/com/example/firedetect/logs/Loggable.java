@@ -1,4 +1,4 @@
-package com.example.todolist.logs;
+package com.example.firedetect.logs;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

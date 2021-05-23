@@ -1,4 +1,4 @@
-package com.example.todolist;
+package com.example.firedetect;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

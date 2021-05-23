@@ -37,15 +37,15 @@
             <td th:text="${fire.date}"/>
             <td th:text="${fire.status}"/>
             <td></td>
-            <td><a href="" th:href="@{'todo/'+ ${fire.id} + '/show'}">Show</a></td>
-            <td><a href="" th:href="@{'todo/' + ${fire.id} + '/edit'}">Edit</a></td>
-            <td><a href="" th:href="@{'todo/' + ${fire.id} + '/delete'}">Delete</a></td>
+            <td><a href="" th:href="@{'fire-detect/'+ ${fire.id} + '/show'}">Show</a></td>
+            <td><a href="" th:href="@{'fire-detect/' + ${fire.id} + '/edit'}">Edit</a></td>
+            <td><a href="" th:href="@{'fire-detect/' + ${fire.id} + '/delete'}">Delete</a></td>
     </tr>
     </tbody>
 </table>
 
 <div class="container center">
-<form action="#" th:action="@{todo/}" th:object="${newFire}" method="post">
+<form action="#" th:action="@{fire-detect/}" th:object="${newFire}" method="post">
     <p>Город: <input type="text" th:field="*{title}" /></p>
     <p>Описание: <input type="text" th:field="*{description}" /></p>
     <p>Дата: <input type="date"   th:value="*{date}" th:field="*{date}"/></p>

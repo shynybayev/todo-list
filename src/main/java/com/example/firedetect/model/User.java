@@ -1,4 +1,4 @@
-package com.example.todolist.model;
+package com.example.firedetect.model;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,60 +9,36 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Класс модели пользователя
- * @author a.shynybayev
- * @version  2.0
- */
 @Entity
 @Data
 public class User implements UserDetails {
 
-    /**
-     * свойство - ID(идентификатор) задачи c автоинкрементацией
-     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * свойство - имя пользователя
-     */
     private String username;
-    /**
-     * свойство - пароль
-     */
+
     private String password;
 
-    /**
-     * Свойство - уникальный электронный адрес
-     */
     @Column(name = "email", unique = true)
     private String email;
-    /**
-     * Свойство - номер телефона
-     */
+
     private String phone;
 
-    /**
-     * Свойство - множество ролей
-     */
+
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name="roles")
     private Set<Role> roles = new HashSet<>();
 
-    /**
-     * Метод возвращающий коллекцию ролей
-     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
 
-    /**
-     * реализация основных методов
-     */
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -81,5 +57,53 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
