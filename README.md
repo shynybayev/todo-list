@@ -1,5 +1,5 @@
 # fire-detect
-Fire Detect приложение с REST API для планирования задач.
+Fire Detect приложение с REST API для ведения статистики по java
 
 Использованные технологий:
 Jdk 1,8+;
