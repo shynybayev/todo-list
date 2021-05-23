@@ -15,7 +15,7 @@
 <h3 class="center">Edit Task</h3>
 
 <div class="container center">
-    <form action="#" th:action="@{'/todo/' + ${task.id}}" th:object="${task}" method="post">
+    <form action="#" th:action="@{'/todo/' + ${fire.id}}" th:object="${fire}" method="post">
         <p>Task Name: <input type="text" th:field="*{title}" /></p>
         <span class="validationError"
         th:if="${#fields.hasErrors('title')}"

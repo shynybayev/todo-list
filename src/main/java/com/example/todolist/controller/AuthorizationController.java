@@ -10,17 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- * Класс контроллер отвечающий за авторизацию
- * @author a.shynybayev
- * @version 2.0
- */
+
 @Controller
 @RequestMapping("/")
 public class AuthorizationController {
-    /**
-     * метод запроса аутентификации с именем пользователя
-     */
+
     @Loggable
     @GetMapping
     public String index(@AuthenticationPrincipal User user, Model model) {
@@ -33,18 +27,14 @@ public class AuthorizationController {
         return "home";
     }
 
-    /**
-     * Метод формы для входа в логин
-     */
+
     @Loggable
     @GetMapping("/login")
     public String login() {
          return "login";
     }
 
-    /**
-     * Метод формы для входа по ролю пользователям
-     */
+
     @Loggable
     @PreAuthorize(value = "hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping("/foruser")

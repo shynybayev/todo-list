@@ -2,29 +2,32 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Fire detect</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
-<h3>Your plan</h3>
+<h3>Fire</h3>
 
 <table class="centered">
     <thead>
     <tr>
-        <th>Task Name</th>
+        <th>Пожар</th>
         <th>Description</th>
         <th>Date</th>
         <th>Is it Done?</th>
+        <th>Temperature</th>
+        <th>Percent of smoke</th>
     </tr>
     </thead>
 
     <tbody>
     <tr>
-            <td th:text="${task.title}" />
-            <td th:text="${task.description}" />
-            <td th:text="${task.date}" />
-            <td th:text="${task.status}" />
-
+            <td th:text="${fire.title}" />
+            <td th:text="${fire.description}" />
+            <td th:text="${fire.date}" />
+            <td th:text="${fire.status}" />
+            <td th:text="${fire.temperature}" />
+            <td th:text="${fire.smoke}" />
     </tr>
     </tbody>
 </table>

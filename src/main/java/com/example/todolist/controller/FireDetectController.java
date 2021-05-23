@@ -1,7 +1,7 @@
 package com.example.todolist.controller;
 
 import com.example.todolist.logs.Loggable;
-import com.example.todolist.model.Task;
+import com.example.todolist.model.Fire;
 import com.example.todolist.repo.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,37 +11,25 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-/**
- *  Класс Контроллер который возвращает представление
- *  @author a.shynybayev
- *  @version 2.0
- */
 
 @Controller
 @RequestMapping("/todo")
-public class TaskController {
-    /**
-     * С помощью этого поля будем выполнять основные CRUD операции для задачи
-     */
+public class FireDetectController {
+
     @Autowired
     private TaskRepository taskRepository;
 
-    /**
-     * Внедрение зависимости через конструктор
-     */
+
     @Autowired
-    public TaskController(TaskRepository taskRepository) {
+    public FireDetectController(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
-    /**
-     * Метод, который загружает весь список задач которое есть в хранилище
-     */
     @GetMapping
     @Loggable
     public String getIndex(Model model){
-        model.addAttribute("tasks", taskRepository.findAll());
-        model.addAttribute("newTask", new Task());
+        model.addAttribute("fires", taskRepository.findAll());
+        model.addAttribute("newFire", new Fire());
         return "index";
     }
 
@@ -50,34 +38,29 @@ public class TaskController {
      */
     @Loggable
     @PostMapping("/")
-    public String createTask(Task task, Model model){
+    public String createTask(Fire fire, Model model){
         try {
-            taskRepository.save(task); //отобразили на одной странице
-            model.addAttribute("task", new Task());
+            taskRepository.save(fire);
+            model.addAttribute("fire", new Fire());
         }catch (Exception e) {
-            model.addAttribute("task", task);
+            model.addAttribute("fire", fire);
             model.addAttribute("error", "failed");
         }
         return "redirect:/todo";
     }
 
-    /**
-     * Метод показывающий задачу по Id
-     */
+
     @Loggable
     @GetMapping("/{id}/show")
     public String showById(@PathVariable("id") Long id, Model model){
         if(taskRepository.findById(id).isPresent()){
-            model.addAttribute("task", taskRepository.findById(id).get());
+            model.addAttribute("fire", taskRepository.findById(id).get());
             return "show";
         }
-        model.addAttribute("task", new Task());
+        model.addAttribute("fire", new Fire());
         return "show";
     }
 
-    /**
-     * Метод для удаления задачи по ID
-     */
     @Loggable
     @GetMapping("/{id}/delete")
     public String deleteById(@PathVariable("id") Long id){
@@ -93,23 +76,21 @@ public class TaskController {
     public String editFormById(@PathVariable("id") Long id, Model model){
 
         if(taskRepository.findById(id).isPresent()){
-            model.addAttribute("task", taskRepository.findById(id).get());
+            model.addAttribute("fire", taskRepository.findById(id).get());
             return "edit";
         }
-        model.addAttribute("task", new Task());
+        model.addAttribute("fire", new Fire());
         return "edit";
     }
 
-    /**
-     * POST Метод для редактирования задачи по ID
-     */
+
     @Loggable
     @PostMapping("/{id}")
-    public String updateTask(@PathVariable Long id, @Valid Task task, Errors errors){
+    public String updateTask(@PathVariable Long id, @Valid Fire fire, Errors errors){
         if (errors.hasErrors()){
-            return "edit"; //ТУ же самую страничку возвращаю
+            return "edit";
         }
-        taskRepository.save(task);
+        taskRepository.save(fire);
         return "redirect:/todo";
     }
 
