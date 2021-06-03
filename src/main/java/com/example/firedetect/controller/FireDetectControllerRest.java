@@ -3,7 +3,7 @@ package com.example.firedetect.controller;
 import com.example.firedetect.logs.Loggable;
 import com.example.firedetect.model.Fire;
 import com.example.firedetect.model.StaticDto;
-import com.example.firedetect.repo.TaskRepository;
+import com.example.firedetect.repo.FireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -20,11 +20,11 @@ public class FireDetectControllerRest {
     private String temp;
 
     @Autowired
-    private TaskRepository taskRepository;
+    private FireRepository fireRepository;
 
     @Autowired
-    public FireDetectControllerRest(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
+    public FireDetectControllerRest(FireRepository fireRepository) {
+        this.fireRepository = fireRepository;
     }
 
     @PostMapping(value = "/postbody", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,14 +33,14 @@ public class FireDetectControllerRest {
     }
 
     @GetMapping
-    public Iterable<Fire> getAllTasks(){
-       return  taskRepository.findAll();
+    public Iterable<Fire> getAllFires(){
+       return  fireRepository.findAll();
     }
 
     @Loggable
     @GetMapping("/{id}")
-    public ResponseEntity<String> getTaskById(@PathVariable("id")Long id){
-        Optional<Fire> task = taskRepository.findById(id);
+    public ResponseEntity<String> getFireById(@PathVariable("id")Long id){
+        Optional<Fire> task = fireRepository.findById(id);
         if (task.isPresent()){
             return new  ResponseEntity<>("success", HttpStatus.OK);
         }
@@ -49,16 +49,16 @@ public class FireDetectControllerRest {
 
     @Loggable
     @PostMapping(consumes = "application/json")
-    public Fire postTask(@RequestBody Fire fire){
-        return taskRepository.save(fire);
+    public Fire postFire(@RequestBody Fire fire){
+        return fireRepository.save(fire);
     }
 
     @Loggable
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deleteTask(@PathVariable("id") Long id){
+    public void deleteFire(@PathVariable("id") Long id){
         try {
-            taskRepository.deleteById(id);
+            fireRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e){
         }
     }
@@ -66,15 +66,15 @@ public class FireDetectControllerRest {
 
     @Loggable
     @PostMapping("/test")
-    public String putTask(@RequestBody String fire){
+    public String putFire(@RequestBody String fire){
         return "success";
     }
 
 
     @Loggable
     @PatchMapping(path = "/{id}", consumes = "application/json")
-    public Fire patchTask(@RequestBody Fire firePath){
-        Fire fireRefresh = taskRepository.findById(firePath.getId()).get();
+    public Fire patchFire(@RequestBody Fire firePath){
+        Fire fireRefresh = fireRepository.findById(firePath.getId()).get();
         if (firePath.getTitle() != null){
             fireRefresh.setTitle(firePath.getTitle());
         }
@@ -89,7 +89,7 @@ public class FireDetectControllerRest {
         } else {
             firePath.setStatus(false);
         }
-        return taskRepository.save(firePath);
+        return fireRepository.save(firePath);
     }
 
 }
