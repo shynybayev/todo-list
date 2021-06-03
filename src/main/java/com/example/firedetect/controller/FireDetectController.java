@@ -2,7 +2,7 @@ package com.example.firedetect.controller;
 
 import com.example.firedetect.logs.Loggable;
 import com.example.firedetect.model.Fire;
-import com.example.firedetect.repo.TaskRepository;
+import com.example.firedetect.repo.FireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,44 +17,42 @@ import javax.validation.Valid;
 public class FireDetectController {
 
     @Autowired
-    private TaskRepository taskRepository;
+    private FireRepository fireRepository;
 
 
     @Autowired
-    public FireDetectController(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
+    public FireDetectController(FireRepository fireRepository) {
+        this.fireRepository = fireRepository;
     }
 
     @GetMapping
     @Loggable
     public String getIndex(Model model){
-        model.addAttribute("fires", taskRepository.findAll());
+        model.addAttribute("fires", fireRepository.findAll());
         model.addAttribute("newFire", new Fire());
         return "index";
     }
 
-    /**
-     * Метод для создание новой задачи
-     */
+
     @Loggable
     @PostMapping("/")
-    public String createTask(Fire fire, Model model){
+    public String createFire(Fire fire, Model model){
         try {
-            taskRepository.save(fire);
+            fireRepository.save(fire);
             model.addAttribute("fire", new Fire());
         }catch (Exception e) {
             model.addAttribute("fire", fire);
             model.addAttribute("error", "failed");
         }
-        return "redirect:/todo";
+        return "redirect:/fire-detect";
     }
 
 
     @Loggable
     @GetMapping("/{id}/show")
     public String showById(@PathVariable("id") Long id, Model model){
-        if(taskRepository.findById(id).isPresent()){
-            model.addAttribute("fire", taskRepository.findById(id).get());
+        if(fireRepository.findById(id).isPresent()){
+            model.addAttribute("fire", fireRepository.findById(id).get());
             return "show";
         }
         model.addAttribute("fire", new Fire());
@@ -64,19 +62,17 @@ public class FireDetectController {
     @Loggable
     @GetMapping("/{id}/delete")
     public String deleteById(@PathVariable("id") Long id){
-        taskRepository.deleteById(id);
+        fireRepository.deleteById(id);
         return "redirect:/todo";
     }
 
-    /**
-     * GET Метод для редактирования задачи по ID
-     */
+
     @Loggable
     @GetMapping("/{id}/edit")
     public String editFormById(@PathVariable("id") Long id, Model model){
 
-        if(taskRepository.findById(id).isPresent()){
-            model.addAttribute("fire", taskRepository.findById(id).get());
+        if(fireRepository.findById(id).isPresent()){
+            model.addAttribute("fire", fireRepository.findById(id).get());
             return "edit";
         }
         model.addAttribute("fire", new Fire());
@@ -86,11 +82,11 @@ public class FireDetectController {
 
     @Loggable
     @PostMapping("/{id}")
-    public String updateTask(@PathVariable Long id, @Valid Fire fire, Errors errors){
+    public String updateFire(@PathVariable Long id, @Valid Fire fire, Errors errors){
         if (errors.hasErrors()){
             return "edit";
         }
-        taskRepository.save(fire);
+        fireRepository.save(fire);
         return "redirect:/fire-detect";
     }
 
